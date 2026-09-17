@@ -1,5 +1,13 @@
 # 🐚 Minishell
 
+<p align="left">
+  <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C Language" />
+  <img src="https://img.shields.io/badge/42-Berlin-000000?style=for-the-badge&logo=42&logoColor=white" alt="42 Berlin" />
+  <img src="https://img.shields.io/badge/Make-GNU-0073AA?style=for-the-badge&logo=gnu-make&logoColor=white" alt="Make" />
+  <img src="https://img.shields.io/badge/Valgrind-Leak%20Free-brightgreen?style=for-the-badge" alt="Valgrind" />
+  <img src="https://img.shields.io/badge/Norminette-Passing-success?style=for-the-badge" alt="Norminette" />
+</p>
+
 Minishell is a bash-like command-line interpreter written in C that replicates core Unix shell functionality. Developed as part of the 42 School curriculum with Kristin Schmitt ([@kristin32schmitt](https://github.com/kristin32schmitt)) and Aidar Sharafeev ([@asta24326](https://github.com/asta24326)), it focuses on low-level process execution, memory management, and signal handling.
 
 ## 🚀 Key Features
