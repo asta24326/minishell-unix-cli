@@ -1,105 +1,35 @@
-## Authors
+# 🐚 Minishell
 
-This project was developed as part of the 42 school curriculum by the team of:
+Minishell is a bash-like command-line interpreter written in C that replicates core Unix shell functionality. Developed as part of the 42 School curriculum with Kristin Schmitt ([@kristin32schmitt](https://github.com/kristin32schmitt)) and Aidar Sharafeev ([@asta24326](https://github.com/asta24326)), it focuses on low-level process execution, memory management, and signal handling.
 
-Kristin Schmitt - [@kristin32schmitt](https://github.com/kristin32schmitt) and 
-Aidar Sharafeev - [@asta24326](https://github.com/asta24326)
+## 🚀 Key Features
 
-# Minishell
+- **Pipeline Execution**: Chain multiple commands using pipes (`|`) with proper file descriptor management.
+- **Redirections & Heredocs**: Complete support for input/output redirections (`<`, `>`, `>>`) and heredoc (`<<`).
+- **Built-in Commands**: Custom implementations of `cd`, `echo` (with `-n`), `env`, `exit`, `export`, `pwd`, and `unset`.
+- **Environment & Signals**: Dynamic variable expansion (`$VAR`, `$?`) and signal handling (`CTRL+C`, `CTRL+D`, `CTRL+\`).
 
-A bash-like command-line interpreter written in C that replicates core shell functionality.
+## 📦 Built With
 
-## Description
+- `C`
+- `GNU Readline`
+- `GCC`
+- `Make`
+- `Valgrind`
 
-Minishell is a simplified implementation of a Unix shell that provides command-line interpretation, environment variable expansion, input/output redirection, pipes, and heredocs. The project implements both built-in commands and external command execution with proper signal handling and memory management.
+## 📍 The Process
 
-## Features
+We approached the project by separating the shell lifecycle into two core stages: parsing and execution. The parsing module breaks user input into tokens, expands environment variables, handles quote scopes, and constructs an Abstract Syntax Tree (AST) / command table. The execution engine then walks through the structure, creating child processes via `fork()`, wiring file descriptors using `pipe()` and `dup2()`, and handling process signals without leaking system resources.
 
-- Interactive command-line interface using GNU Readline
-- Command history navigation
-- Environment variable expansion (`$VAR`, `$?`)
-- Input/output redirections (`<`, `>`, `>>`)
-- Heredocs (`<<`)
-- Pipes (`|`) for chaining commands
-- Signal handling (CTRL+C, CTRL+D, CTRL+\\)
-- Built-in commands:
-  - `cd` - change directory
-  - `echo` - display text (with `-n` flag support)
-  - `env` - display environment variables
-  - `exit` - exit the shell
-  - `export` - set environment variables
-  - `pwd` - print working directory
-  - `unset` - remove environment variables
-- External command execution via PATH resolution
-- Quote handling (single and double quotes)
+## 🧠 What We Learned & Overall Growth
 
-## Building
+- **Process & Memory Architecture**: Gained a deep understanding of process isolation, file descriptor tables, process groups, and rigorous memory tracking to ensure zero leaks under Valgrind.
+- **Systems-Level Edge Cases**: Mastered complex edge-case handling around file permissions, non-existing environment variables, nested quotes, and signal interruptions during blocking operations.
+- **Collaborative Engineering**: Enhanced pair-programming, codebase organization, and technical communication while dividing complex modules between team members.
 
-```bash
-cd mini-shell
-make
-```
+## 💡 How It Can Be Improved
 
-This will compile the project and create the `minishell` executable.
-
-## Usage
-
-```bash
-./minishell
-```
-
-Once running, you can enter commands just like in bash:
-
-```bash
-minishell$ echo "Hello World"
-Hello World
-minishell$ ls -la | grep mini
-minishell$ cat << EOF > file.txt
-> line 1
-> line 2
-> EOF
-minishell$ export MY_VAR=value
-minishell$ echo $MY_VAR
-value
-minishell$ exit
-```
-
-## Development
-
-### Build Commands
-
-- `make` - Build the project
-- `make clean` - Remove object files
-- `make fclean` - Remove object files and executable
-- `make re` - Rebuild from scratch
-- `make valgrind` - Run with valgrind for memory leak detection
-- `make valchild` - Run with valgrind including child process tracking
-
-### Project Structure
-
-```
-mini-shell/
-├── includes/
-│   └── minishell.h          # Main header file
-├── libraries/
-│   └── libft/               # Custom C library
-├── src/
-│   ├── parsing/             # Input parsing and command preparation
-│   └── execution/           # Command execution and built-ins
-├── Makefile
-└── functions.txt            # Reference for allowed external functions
-```
-
-## Requirements
-
-- GNU Readline library
-- GCC compiler
-- Make
-
-## Memory Management
-
-The project is designed to be memory-leak free. Use the provided valgrind targets to verify:
-
-```bash
-make valgrind
-```
+- **Job Control**: Add support for background (`&`) and foreground job management (`fg`, `bg`).
+- **Advanced Wildcards**: Implement filename expansion using pattern matching (`*`).
+- **Scripting Support**: Enable reading and executing shell script files directly.
+- **Customization**: Support custom prompt formatting and `.minishellrc` configuration files.
